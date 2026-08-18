@@ -18,9 +18,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY package*.json ./
-RUN npx pnpm install
+
+# Copy all project files (needed for pnpm lockfile & workspace configs)
 COPY . .
 
+# Install pnpm globally and install all dependencies
+RUN npm install -g pnpm && pnpm install --no-frozen-lockfile
+
 EXPOSE 8080
-CMD ["npx", "pnpm", "start"]
+CMD ["pnpm", "start"]

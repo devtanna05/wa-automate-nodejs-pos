@@ -13,7 +13,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 WORKDIR /app
 
 COPY package.json ./
-RUN npm install --legacy-peer-deps
+RUN npx --yes pnpm@9 install
 
 EXPOSE 8080
-CMD ["npm", "start"]
+CMD ["npx", "pnpm", "start"]

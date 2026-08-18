@@ -2,14 +2,10 @@
   "name": "wa-automate-pos",
   "version": "1.0.0",
   "private": true,
-  "description": "OpenWA REST API Server for POS",
   "scripts": {
-    "start": "npx @open-wa/wa-automate --port 8080 --api-host 0.0.0.0 --no-sandbox"
+    "start": "npx @open-wa/wa-automate --port 8080 --api-host 0.0.0.0 --no-sandbox --use-chrome"
   },
   "dependencies": {
-    "@open-wa/wa-automate": "4.66.5"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "@open-wa/wa-automate": "latest"
   }
 }

@@ -1,4 +1,4 @@
-FROM node:22
+FROM node:22-slim
 
 # Install Chromium for Puppeteer
 RUN apt-get update && apt-get install -y \
@@ -12,8 +12,8 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 WORKDIR /app
 
-# Install open-wa globally
-RUN npm install -g @open-wa/wa-automate@latest
+COPY package.json ./
+RUN npm install
 
 EXPOSE 8080
-CMD ["npx", "@open-wa/wa-automate", "--port", "8080", "--api-host", "0.0.0.0", "--no-sandbox"]
+CMD ["npm", "start"]

@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npx pnpm install
 COPY . .
 
 EXPOSE 8080
-CMD ["npm", "start"]
+CMD ["npx", "pnpm", "start"]

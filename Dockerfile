@@ -1,13 +1,9 @@
-FROM node:22-slim
+FROM node:22
 
-# Install system Chromium for Puppeteer
+# Install Chromium for Puppeteer
 RUN apt-get update && apt-get install -y \
     chromium \
-    fonts-ipafont-gothic \
-    fonts-wqy-zenhei \
-    fonts-thai-tlwg \
-    fonts-kacst \
-    fonts-freefont-ttf \
+    fonts-liberation \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
@@ -16,8 +12,8 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 WORKDIR /app
 
-# Install open-wa standalone CLI
-RUN npm install -g @open-wa/wa-automate
+# Install open-wa globally
+RUN npm install -g @open-wa/wa-automate@latest
 
 EXPOSE 8080
 CMD ["npx", "@open-wa/wa-automate", "--port", "8080", "--api-host", "0.0.0.0", "--no-sandbox"]

@@ -1,19 +1,5 @@
-FROM node:22-slim
+FROM openwa/wa-automate:latest
 
-# Install Chromium for Puppeteer
-RUN apt-get update && apt-get install -y \
-    chromium \
-    fonts-liberation \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
-
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
-
-WORKDIR /app
-
-COPY package.json ./
-RUN npx --yes pnpm@9 install
-
+# Use stable 4.76.0 release as recommended by README
 EXPOSE 8080
-CMD ["npx", "pnpm", "start"]
+CMD ["npx", "@open-wa/wa-automate@4.76.0", "--port", "8080", "--api-host", "0.0.0.0", "--no-sandbox"]

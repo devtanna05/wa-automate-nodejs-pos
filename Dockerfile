@@ -1,4 +1,17 @@
-FROM openwa/wa-automate:latest
+FROM node:18-slim
 
-EXPOSE 8080
-CMD ["sh", "-c", "npx @open-wa/wa-automate@4.76.0 --port ${PORT:-8080} --api-host 0.0.0.0 --no-sandbox --skip-save-postman-collection"]
+# Install Chromium for Puppeteer
+RUN apt-get update && apt-get install -y \
+    chromium \
+    fonts-liberation \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
+    WA_SKIP_SAVE_POSTMAN_COLLECTION=true
+
+WORKDIR /app
+
+ENTRYPOINT []
+CMD ["npx", "@open-wa/wa-automate@4.76.0", "--port", "8080", "--api-host", "0.0.0.0", "--no-sandbox"]
